@@ -96,7 +96,7 @@ create_bind_cache_dir() {
 }
 
 first_init() {
-  if [ ! -f /data/.initialized ]; then
+  if [ ! -f /${DATA_DIR}/.initialized ]; then
     set_webmin_redirect_port
     if [ "${WEBMIN_INIT_SSL_ENABLED}" == "false" ]; then
       disable_webmin_ssl
@@ -104,7 +104,7 @@ first_init() {
     if [ "${WEBMIN_INIT_REFERERS}" != "NONE" ]; then
       set_webmin_referers
     fi
-    touch /data/.initialized
+    touch /${DATA_DIR}/.initialized
   fi
 }
 
