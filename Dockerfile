@@ -13,8 +13,8 @@ FROM ubuntu:jammy-20220428
 LABEL maintainer="sameer@damagehead.com"
 
 ENV BIND_USER=bind \
-    BIND_VERSION=9.16.1 \
-    WEBMIN_VERSION=1.941 \
+    BIND_VERSION=9.18.1 \
+    WEBMIN_VERSION=1.991 \
     DATA_DIR=/data
 
 COPY --from=add-apt-repositories /etc/keyrings/jcameron-key.gpg /etc/keyrings/jcameron-key.gpg
