@@ -10,12 +10,13 @@ RUN apt-get update \
 
 FROM ubuntu:jammy-20220428
 
-LABEL maintainer="sameer@damagehead.com"
+LABEL maintainer="aaros.pl@gmail.com"
 
 ENV BIND_USER=bind \
-    BIND_VERSION=9.18.1 \
-    WEBMIN_VERSION=1.991 \
-    DATA_DIR=/data
+    BIND_VERSION=9.18.3 \
+    WEBMIN_VERSION=1.993 \
+    DATA_DIR=/data \
+    WEBMIN_DIR=/webmin
 
 COPY --from=add-apt-repositories /etc/keyrings/jcameron-key.gpg /etc/keyrings/jcameron-key.gpg
 
@@ -23,10 +24,14 @@ COPY --from=add-apt-repositories /etc/apt/sources.list.d/webmin.list /etc/apt/so
 
 RUN rm -rf /etc/apt/apt.conf.d/docker-gzip-indexes \
  && apt-get update \
+ && apt-get install -y software-properties-common \
+ && add-apt-repository -y ppa:isc/bind
+RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
       bind9=1:${BIND_VERSION}* bind9-host=1:${BIND_VERSION}* dnsutils \
       webmin=${WEBMIN_VERSION}* \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && apt-get --purge -y autoremove policykit-1
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 

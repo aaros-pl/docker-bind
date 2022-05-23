@@ -1,3 +1,4 @@
 *.deb
 .github
 .vscode
+ROOT_PASSWORD

@@ -3,10 +3,14 @@ version: '2'
 services:
   bind:
     restart: always
-    image: sameersbn/bind:9.18.1-jammy-20220428
+    image: aarospl/bind:9.18.3-jammy-20220428
     ports:
     - "53:53/udp"
     - "53:53/tcp"
     - "10000:10000/tcp"
     volumes:
-    - /srv/docker/bind:/data
+    - bind:/bind
+    - webmin:/webmin
+volumes:
+    bind:
+    webmin:
