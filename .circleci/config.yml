@@ -198,7 +198,8 @@ commands:
 
 jobs:
   build:
-    executor: docker/machine
+    machine:
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - docker-build:
@@ -212,7 +213,8 @@ jobs:
           tag: ${CIRCLE_TAG:-latest}
 
   test:
-    executor: docker/machine
+    machine:
+      image: ubuntu-2004:202201-02
     steps:
       - checkout
       - docker-load
@@ -234,7 +236,8 @@ jobs:
               docker run --rm --net testnet aarospl/bind:${CIRCLE_TAG:-latest} host www.google.com bind
 
   publish-dockerhub:
-    executor: docker/machine
+    machine:
+      image: ubuntu-2004:202201-02
     steps:
       - docker-load
       - docker/check:
