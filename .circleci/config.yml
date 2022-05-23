@@ -223,7 +223,7 @@ jobs:
           command: docker network create testnet
       - run:
           name: Launch bind container
-          command: docker run --name bind -d --net testnet aarospl/bind:$<<pipeline.git.branch>>
+          command: docker run --name bind -d --net testnet aarospl/bind:<<pipeline.git.branch>>
       - run:
           name: Wait for bootup
           command: sleep 15
