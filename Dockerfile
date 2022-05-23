@@ -25,8 +25,8 @@ COPY --from=add-apt-repositories /etc/apt/sources.list.d/webmin.list /etc/apt/so
 RUN rm -rf /etc/apt/apt.conf.d/docker-gzip-indexes \
  && apt-get update \
  && apt-get install -y software-properties-common \
- && add-apt-repository -y ppa:isc/bind
-RUN apt-get update \
+ && add-apt-repository -y ppa:isc/bind \
+ && apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
       bind9=1:${BIND_VERSION}* bind9-host=1:${BIND_VERSION}* dnsutils \
       webmin=${WEBMIN_VERSION}* \
