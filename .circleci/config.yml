@@ -205,12 +205,12 @@ jobs:
       - docker-build:
           registry: docker.io
           image: aarospl/bind
-          tag: ${CIRCLE_TAG:-latest}
+          tag: <<pipeline.git.branch>>
           cache_from: docker.io/aarospl/bind:latest
       - docker-save:
           registry: docker.io
           image: aarospl/bind
-          tag: ${CIRCLE_TAG:-latest}
+          tag: <<pipeline.git.branch>>
 
   test:
     machine:
@@ -223,7 +223,7 @@ jobs:
           command: docker network create testnet
       - run:
           name: Launch bind container
-          command: docker run --name bind -d --net testnet aarospl/bind:${CIRCLE_TAG:-latest}
+          command: docker run --name bind -d --net testnet aarospl/bind:$<<pipeline.git.branch>>
       - run:
           name: Wait for bootup
           command: sleep 15
@@ -233,7 +233,7 @@ jobs:
       - run:
           name: Test image
           command: |
-              docker run --rm --net testnet aarospl/bind:${CIRCLE_TAG:-latest} host www.google.com bind
+              docker run --rm --net testnet aarospl/bind:<<pipeline.git.branch>> host www.google.com bind
 
   publish-dockerhub:
     machine:
